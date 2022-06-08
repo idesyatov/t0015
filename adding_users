@@ -31,7 +31,7 @@ USERS=(user0 user1 user2 user3)
 
 
 # Better not to modify unnecessarily
-[[ $EUID -ne 0 ]] && logger --alert "This script must be run as root" && exit 1
+[[ $EUID -ne 0 ]] && echo "This script must be run as root" && exit 1
 
 CREATE_USER() {
 useradd -m ${1} && \
