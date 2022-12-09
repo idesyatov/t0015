@@ -1,0 +1,23 @@
+DELAY 3500
+GUI r
+DELAY 200
+STRING cmd
+ENTER
+DELAY 200
+STRING cd %tmp% && copy con rickyou.vbs /Y
+ENTER
+STRING Dim iURL
+ENTER
+STRING Dim objShell
+ENTER
+STRING iURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+ENTER
+STRING set objShell = CreateObject("WScript.Shell")
+ENTER
+STRING objShell.run(iURL)
+ENTER
+DELAY 100
+CTRL z
+ENTER
+STRING start rickyou.vbs
+ENTER
