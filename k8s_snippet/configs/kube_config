@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Config
+preferences: {}
+
+#### CLUSTERS
+clusters:
+- cluster:
+    certificate-authority-data: {{ LOCAL_CERT_AUTH }} 
+    server: {{ LOCAL_SERVER }} 
+  name: k8s-local
+
+- cluster:
+    certificate-authority-data: {{ DEV_CERT_AUTH }} 
+    server: {{ DEV_SERVER }} 
+  name: k8s-dev
+
+#### CONTEXTS
+contexts:
+- context:
+    cluster: k8s-local
+    user: k8s-local-admin
+  name: k8s-local
+  
+- context:
+    cluster: k8s-dev
+    user: k8s-dev-admin
+  name: k8s-dev
+
+#### USERS
+users:
+- name: k8s-local-admin
+  user:
+    {{ LOCAL_ADMIN_USER }}
+
+- name: k8s-dev-admin
+  user:
+    {{ DEV_ADMIN_USER }}
