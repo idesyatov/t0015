@@ -12,13 +12,13 @@ CURRENT   NAME        CLUSTER     AUTHINFO          NAMESPACE
 Переключился на контекст "k8s-local"
 
 ```bash
-$ kubectl config use-context k8s-local
+➜  ~ kubectl config use-context k8s-local
 ```
 
 Переключился на контекст "k8s-dev"
 
 ```bash
-$ kubectl config use-context k8s-dev
+➜  ~ kubectl config use-context k8s-dev
 ```
 
 Проверка что контекст k8s-dev
