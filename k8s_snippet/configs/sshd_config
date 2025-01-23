@@ -1,0 +1,84 @@
+ ### Network ###
+
+Include /etc/ssh/sshd_config.d/*.conf
+# Используем нестандартный порт (>1024)
+port 22
+# Используем только IPv4 соединения
+# inet = IPv4, inet6 = IPv6, any = both
+AddressFamily inet
+# Можно принимать соединения только с определённых IP-адресов
+#ListenAddress 0.0.0.0
+
+# Используем вторую версию протокола, т.к. первая подвержена
+# известным уязвимостям
+Protocol 2
+
+# Отключаем перенаправление графики (X-сервер) до тех пор
+# пока она явно не понадобится вам
+X11Forwarding no
+
+# Отключаем Disable TCPKeepAlive и используем ClientAliveInterval вместо этого,
+# чтобы предотвратить атаки типа TCP Spoofing
+TCPKeepAlive no
+# Выкидваем пользователя через 10min (600 sec) неактивности
+ClientAliveInterval 600
+ClientAliveCountMax 3
+
+
+  ### Key configuration files ###
+
+# HostKeys для протокола версии 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Разрешаем авторизацию по публичному ключу
+PubkeyAuthentication yes
+# Место хранения доверенных ключей в каталоге пользователя
+AuthorizedKeysFile      .ssh/authorized_keys
+
+
+  ### Logging ###
+
+# Префикс для syslog
+SyslogFacility AUTH
+# уровень подробности сообщений для самого sshd
+LogLevel INFO
+
+  ### Authentication ###
+
+# список разрешённых пользователей
+# AllowUsers debian
+
+# ограничиваем время для ввода пароля для ssh-ключа
+LoginGraceTime 30s
+
+# запрещаем удалённо входить под учётной записью root
+PermitRootLogin no
+
+# Включаем явную проверку прав файлов и директорий с ssh-ключами
+StrictModes yes
+
+# Сколько раз переспрашивать пароль при неверном вводе
+MaxAuthTries 3
+
+# Запрещаем вход по пустому паролю
+PermitEmptyPasswords no
+
+# Запрещаем вход по паролю в принципе
+# (Используем публичный/приватный ключ вместо этого)
+PasswordAuthentication no
+
+# Отключаем использование "challenge-responce" авторизацию,
+# т.к. она бесполезна при использовании ключей
+ChallengeResponseAuthentication no
+
+# Так как мы не используем пароль, то и {PAM, login(1)} нам не нужены
+UsePAM no
+
+# Позволяем клиенту передавать лишь определённый набор переменных окружения
+# RH BZ#CVE-2014-2532
+# ShellShock exploit
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL
