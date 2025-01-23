@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# DOCKER
+# DOCKER DEBIAN
 
 sudo apt-get update && \
 sudo apt-get install ca-certificates curl wget gnupg lsb-release -y && \
