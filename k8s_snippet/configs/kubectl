@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# This script is a wrapper used in WSL to call Windows utilities: tsh and kubectl
-
 CONFIG_PATH="$HOME/.kube/config"
 TEMP_CONFIG_PATH="$HOME/.kube/config_temp"
 
@@ -13,5 +11,6 @@ fi
 awk '{gsub(/C:[^ ]*tsh\.exe/, "tsh"); print}' "$CONFIG_PATH" > "$TEMP_CONFIG_PATH"
 
 export KUBECONFIG="$TEMP_CONFIG_PATH"
+echo -e "Cluster: \e[32m$(kubectl config current-context)\e[0m"
 
 kubectl "$@"
