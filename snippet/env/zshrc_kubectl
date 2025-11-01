@@ -1,0 +1,5 @@
+# for kubectl with tsh.exe in WSL
+function kubectl() {
+    local context=$(/usr/local/bin/kubectl config current-context 2>/dev/null)
+    command $([[ "$context" == *"teleport"* ]] && echo "tsh kubectl" || echo "kubectl") "$@"
+}
