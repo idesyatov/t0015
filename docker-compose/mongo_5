@@ -1,0 +1,9 @@
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name: mongodb
+    volumes:
+      - /opt/mongodb/data:/data/db
+    ports:
+      - "127.0.0.1:27017:27017"
+    restart: on-failure
